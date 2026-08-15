@@ -1,7 +1,7 @@
 """Tests unitaires du moteur de calendrier."""
 import pytest
 from datetime import datetime, timedelta
-from custom_components.school_calendar_hub.engines.calendar_engine import (
+from custom_components.calendrier_scolaire_quebecois.engines.calendar_engine import (
     CalendarEngine,
 )
 

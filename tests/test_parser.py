@@ -1,6 +1,6 @@
 """Tests unitaires du moteur d'analyse."""
 import pytest
-from custom_components.school_calendar_hub.engines.parser import ParserEngine
+from custom_components.calendrier_scolaire_quebecois.engines.parser import ParserEngine
 
 
 class MockManager:

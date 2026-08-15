@@ -1,6 +1,6 @@
 """Tests unitaires du moteur de découverte."""
 import pytest
-from custom_components.school_calendar_hub.engines.discovery import (
+from custom_components.calendrier_scolaire_quebecois.engines.discovery import (
     DiscoveryEngine,
 )
 
