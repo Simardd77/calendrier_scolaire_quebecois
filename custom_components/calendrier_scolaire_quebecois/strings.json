@@ -2,10 +2,12 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configuration de Calendrier Scolaire Québécois",
-        "description": "Configurez vos sources de calendrier scolaire",
+        "title": "Configuration du Calendrier Scolaire Québécois",
+        "description": "Configurez votre source de calendrier scolaire",
         "data": {
-          "name": "Nom",
+          "name": "Nom du calendrier",
+          "source_url": "URL de la source (PDF, iCal ou site web)",
+          "source_type": "Type de source",
           "refresh_interval": "Intervalle de rafraîchissement (secondes)",
           "enable_ocr": "Activer l'OCR pour l'analyse PDF",
           "learning_mode": "Activer le moteur d'apprentissage"
@@ -13,7 +15,7 @@
       }
     },
     "error": {
-      "cannot_connect": "Échec de connexion",
+      "cannot_connect": "Impossible d'accéder à l'URL fournie",
       "invalid_auth": "Authentification invalide",
       "unknown": "Une erreur inconnue s'est produite"
     }
@@ -21,9 +23,11 @@
   "options": {
     "step": {
       "init": {
-        "title": "Options de Calendrier Scolaire Québécois",
+        "title": "Options du Calendrier Scolaire Québécois",
         "description": "Mettez à jour vos paramètres",
         "data": {
+          "source_url": "URL de la source (PDF, iCal ou site web)",
+          "source_type": "Type de source",
           "refresh_interval": "Intervalle de rafraîchissement (secondes)",
           "enable_ocr": "Activer l'OCR pour l'analyse PDF",
           "learning_mode": "Activer le moteur d'apprentissage"

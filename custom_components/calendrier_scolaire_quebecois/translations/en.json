@@ -3,9 +3,11 @@
     "step": {
       "user": {
         "title": "Quebec School Calendar Configuration",
-        "description": "Configure your school calendar sources",
+        "description": "Configure your school calendar source",
         "data": {
-          "name": "Name",
+          "name": "Calendar name",
+          "source_url": "Source URL (PDF, iCal or website)",
+          "source_type": "Source type",
           "refresh_interval": "Refresh interval (seconds)",
           "enable_ocr": "Enable OCR for PDF analysis",
           "learning_mode": "Enable learning engine"
@@ -13,7 +15,7 @@
       }
     },
     "error": {
-      "cannot_connect": "Failed to connect",
+      "cannot_connect": "Cannot reach the provided URL",
       "invalid_auth": "Invalid authentication",
       "unknown": "An unknown error occurred"
     }
@@ -24,6 +26,8 @@
         "title": "Quebec School Calendar Options",
         "description": "Update your settings",
         "data": {
+          "source_url": "Source URL (PDF, iCal or website)",
+          "source_type": "Source type",
           "refresh_interval": "Refresh interval (seconds)",
           "enable_ocr": "Enable OCR for PDF analysis",
           "learning_mode": "Enable learning engine"

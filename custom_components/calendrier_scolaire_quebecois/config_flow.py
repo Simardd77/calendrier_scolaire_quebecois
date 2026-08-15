@@ -5,9 +5,10 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, Optional
 
+import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.const import CONF_NAME
+from homeassistant.const import CONF_NAME, CONF_URL
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
@@ -16,6 +17,8 @@ from .const import (
     CONF_ENABLE_OCR,
     CONF_LEARNING_MODE,
     CONF_REFRESH_INTERVAL,
+    CONF_SOURCE_TYPE,
+    CONF_SOURCE_URL,
     DEFAULT_ENABLE_OCR,
     DEFAULT_LEARNING_MODE,
     DEFAULT_REFRESH_INTERVAL,
@@ -40,17 +43,35 @@ class CalendrierScolaireQcConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             try:
-                # Valide l'entrée
                 name = user_input.get(CONF_NAME, "Calendrier Scolaire")
+                source_url = user_input.get(CONF_SOURCE_URL, "")
+                source_type = user_input.get(CONF_SOURCE_TYPE, "direct_url")
 
                 # Vérifie les doublons
                 await self.async_set_unique_id(name)
                 self._abort_if_unique_id_configured()
 
+                # Valide l'URL si fournie
+                if source_url:
+                    if not await self._validate_url(source_url):
+                        errors["source_url"] = "cannot_connect"
+                        raise CannotConnect("URL inaccessible")
+
+                # Prépare les sources initiales
+                sources = {}
+                if source_url:
+                    sources["source_0"] = {
+                        "name": name,
+                        "url": source_url,
+                        "type": source_type,
+                    }
+
                 return self.async_create_entry(
                     title=name,
                     data={
                         CONF_NAME: name,
+                        CONF_SOURCE_URL: source_url,
+                        CONF_SOURCE_TYPE: source_type,
                         CONF_REFRESH_INTERVAL: user_input.get(
                             CONF_REFRESH_INTERVAL, DEFAULT_REFRESH_INTERVAL
                         ),
@@ -60,14 +81,11 @@ class CalendrierScolaireQcConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         CONF_LEARNING_MODE: user_input.get(
                             CONF_LEARNING_MODE, DEFAULT_LEARNING_MODE
                         ),
+                        "sources": sources,
                     },
                 )
-            except CannotConnect as err:
+            except CannotConnect:
                 errors["base"] = "cannot_connect"
-                _LOGGER.error("Impossible de connecter: %s", err)
-            except InvalidAuth as err:
-                errors["base"] = "invalid_auth"
-                _LOGGER.error("Authentification invalide: %s", err)
             except Exception as err:  # pylint: disable=broad-except
                 errors["base"] = "unknown"
                 _LOGGER.error("Erreur inconnue: %s", err)
@@ -75,6 +93,10 @@ class CalendrierScolaireQcConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema(
             {
                 vol.Required(CONF_NAME, default="Calendrier Scolaire"): str,
+                vol.Optional(CONF_SOURCE_URL, default=""): str,
+                vol.Optional(CONF_SOURCE_TYPE, default="direct_url"): vol.In(
+                    SOURCE_TYPES
+                ),
                 vol.Optional(
                     CONF_REFRESH_INTERVAL, default=DEFAULT_REFRESH_INTERVAL
                 ): vol.All(vol.Coerce(int), vol.Range(min=60, max=86400)),
@@ -89,6 +111,17 @@ class CalendrierScolaireQcConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
             description_placeholders={},
         )
+
+    async def _validate_url(self, url: str) -> bool:
+        """Valide qu'une URL est accessible."""
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.head(
+                    url, timeout=aiohttp.ClientTimeout(total=10)
+                ) as resp:
+                    return resp.status < 400
+        except Exception:
+            return False
 
     async def async_step_import(self, import_data: Dict[str, Any]) -> FlowResult:
         """Importe une entrée de configuration depuis configuration.yaml."""
