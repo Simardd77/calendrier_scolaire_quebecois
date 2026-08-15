@@ -47,8 +47,8 @@ Tableau de bord Home Assistant
 ## Structure des fichiers
 
 ```
-custom_components/school_calendar_hub/
-├── __init__.py                  # Configuration principale
+custom_components/calendrier_scolaire_quebecois/
+├── __init__.py                 # Configuration principale
 ├── config_flow.py              # Flux de configuration
 ├── const.py                    # Constantes
 ├── manifest.json               # Métadonnées de l'intégration
@@ -81,7 +81,7 @@ custom_components/school_calendar_hub/
 
 ## Ajouter un nouveau parseur
 
-Créez un nouveau fichier dans `custom_components/school_calendar_hub/engines/parsers/` :
+Créez un nouveau fichier dans `custom_components/calendrier_scolaire_quebecois/engines/parsers/` :
 
 ```python
 # parsers/my_school.py
@@ -109,7 +109,7 @@ pytest tests/
 pytest tests/test_parser.py
 
 # Avec couverture
-pytest --cov=custom_components/school_calendar_hub tests/
+pytest --cov=custom_components/calendrier_scolaire_quebecois tests/
 ```
 
 ## Débogage
@@ -119,9 +119,9 @@ Activez le journal de débogage :
 ```yaml
 logger:
   logs:
-    custom_components.school_calendar_hub: debug
-    custom_components.school_calendar_hub.engines: debug
-    custom_components.school_calendar_hub.core: debug
+    custom_components.calendrier_scolaire_quebecois: debug
+    custom_components.calendrier_scolaire_quebecois.engines: debug
+    custom_components.calendrier_scolaire_quebecois.core: debug
 ```
 
 ## Tâches courantes
@@ -136,10 +136,10 @@ logger:
 ### Améliorer la précision du parseur
 
 1. Collectez des PDF et exemples de sites
-2. Exécutez le service `school_calendar_hub.parse_pdf`
+2. Exécutez le service `calendrier_scolaire_quebecois.parse_pdf`
 3. Vérifiez les événements extraits
 4. Mettez à jour les motifs dans `const.py`
-5. Entraînez le moteur d'apprentissage : `school_calendar_hub.train_parser`
+5. Entraînez le moteur d'apprentissage : `calendrier_scolaire_quebecois.train_parser`
 
 ## Optimisation des performances
 

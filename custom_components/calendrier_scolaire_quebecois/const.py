@@ -1,6 +1,6 @@
 """Constantes pour l'intégration Calendrier Scolaire Québécois."""
 
-DOMAIN = "school_calendar_hub"
+DOMAIN = "calendrier_scolaire_quebecois"
 VERSION = "1.0.0"
 
 # Clés d'entrée de configuration

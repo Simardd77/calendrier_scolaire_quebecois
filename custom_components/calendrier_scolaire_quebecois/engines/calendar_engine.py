@@ -45,10 +45,10 @@ class CalendarEngine:
 
         for event in events:
             # Determine calendar name
-            source = event.get("source", "General")
+            source = event.get("source", "Général")
             is_holiday = event.get("is_holiday", False)
 
-            calendar_name = "Holidays" if is_holiday else source
+            calendar_name = "Congés" if is_holiday else source
 
             if calendar_name not in calendars:
                 calendars[calendar_name] = []

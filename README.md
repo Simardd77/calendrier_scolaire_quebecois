@@ -35,7 +35,7 @@ Après l'installation, redémarrez Home Assistant.
 ### Installation manuelle
 
 1. Clonez ce dépôt
-2. Copiez `custom_components/school_calendar_hub` dans le dossier `custom_components` de Home Assistant
+2. Copiez `custom_components/calendrier_scolaire_quebecois` dans le dossier `custom_components` de Home Assistant
 3. Copiez le contenu de `www/` dans le dossier `www/` de Home Assistant (si applicable)
 4. Redémarrez Home Assistant
 
@@ -57,13 +57,13 @@ Après l'installation, redémarrez Home Assistant.
 Vous pouvez ajouter des sources de calendrier via :
 
 1. **Interface du flux de configuration** - Pendant la configuration initiale
-2. **Appel de service** - Utiliser `school_calendar_hub.add_source`
+2. **Appel de service** - Utiliser `calendrier_scolaire_quebecois.add_source`
 3. **Configuration** - Saisie manuelle dans `configuration.yaml`
 
 #### Exemple d'appel de service
 
 ```yaml
-service: school_calendar_hub.add_source
+service: calendrier_scolaire_quebecois.add_source
 data:
   name: "Calendrier scolaire 2024"
   source_url: "https://example.com/calendar.pdf"
@@ -74,28 +74,28 @@ data:
 
 ### Entités de calendrier
 
-- `calendar.school_calendar_hub_[nom]_[source]`
+- `calendar.calendrier_scolaire_quebecois_[nom]_[source]`
   - Affiche tous les événements d'une source spécifique
 
 ### Capteurs
 
-- `sensor.school_calendar_hub_[nom]_total_events` - Nombre total d'événements
-- `sensor.school_calendar_hub_[nom]_next_event` - Prochain événement à venir
-- `sensor.school_calendar_hub_[nom]_upcoming_events_7_days` - Événements dans les 7 prochains jours
-- `sensor.school_calendar_hub_[nom]_status` - État de l'intégration
+- `sensor.calendrier_scolaire_quebecois_[nom]_total_events` - Nombre total d'événements
+- `sensor.calendrier_scolaire_quebecois_[nom]_next_event` - Prochain événement à venir
+- `sensor.calendrier_scolaire_quebecois_[nom]_upcoming_events_7_days` - Événements dans les 7 prochains jours
+- `sensor.calendrier_scolaire_quebecois_[nom]_status` - État de l'intégration
 
 ### Capteurs binaires
 
-- `binary_sensor.school_calendar_hub_[nom]_school_open` - École ouverte/fermée
-- `binary_sensor.school_calendar_hub_[nom]_event_today` - Événement prévu aujourd'hui
-- `binary_sensor.school_calendar_hub_[nom]_holiday` - Congé aujourd'hui
+- `binary_sensor.calendrier_scolaire_quebecois_[nom]_school_open` - École ouverte/fermée
+- `binary_sensor.calendrier_scolaire_quebecois_[nom]_event_today` - Événement prévu aujourd'hui
+- `binary_sensor.calendrier_scolaire_quebecois_[nom]_holiday` - Congé aujourd'hui
 
 ## Services
 
 ### Ajouter une source
 
 ```yaml
-service: school_calendar_hub.add_source
+service: calendrier_scolaire_quebecois.add_source
 data:
   name: "Nom de la source"
   source_url: "https://example.com/calendar.pdf"
@@ -106,7 +106,7 @@ data:
 ### Supprimer une source
 
 ```yaml
-service: school_calendar_hub.remove_source
+service: calendrier_scolaire_quebecois.remove_source
 data:
   source_id: "source_123"
 ```
@@ -114,13 +114,13 @@ data:
 ### Actualiser le calendrier
 
 ```yaml
-service: school_calendar_hub.refresh_calendar
+service: calendrier_scolaire_quebecois.refresh_calendar
 ```
 
 ### Analyser un PDF
 
 ```yaml
-service: school_calendar_hub.parse_pdf
+service: calendrier_scolaire_quebecois.parse_pdf
 data:
   file_path: "/path/to/calendar.pdf"
 ```
@@ -128,7 +128,7 @@ data:
 ### Entraîner l'analyseur
 
 ```yaml
-service: school_calendar_hub.train_parser
+service: calendrier_scolaire_quebecois.train_parser
 ```
 
 ## Configuration avancée
@@ -138,12 +138,12 @@ service: school_calendar_hub.train_parser
 ```yaml
 logger:
   logs:
-    custom_components.school_calendar_hub: debug
+    custom_components.calendrier_scolaire_quebecois: debug
 ```
 
 ### Configuration personnalisée du parseur
 
-Créez des parseurs pour des écoles spécifiques dans `custom_components/school_calendar_hub/parsers/` :
+Créez des parseurs pour des écoles spécifiques dans `custom_components/calendrier_scolaire_quebecois/parsers/` :
 
 ```python
 # parsers/my_school.py
@@ -180,9 +180,9 @@ sudo apt-get install tesseract-ocr
 
 ### Le PDF n'est pas analysé
 
-1. Vérifiez les journaux : `logger.logs.custom_components.school_calendar_hub: debug`
+1. Vérifiez les journaux : `logger.logs.custom_components.calendrier_scolaire_quebecois: debug`
 2. Assurez-vous que le PDF n'est pas corrompu
-3. Essayez une actualisation manuelle : Appelez `school_calendar_hub.refresh_calendar`
+3. Essayez une actualisation manuelle : Appelez `calendrier_scolaire_quebecois.refresh_calendar`
 
 ### Le moteur d'apprentissage ne s'entraîne pas
 
@@ -193,10 +193,10 @@ Un minimum de 10 événements est requis pour l'entraînement. Plus il y a de do
 ### Configuration de l'environnement de développement
 
 ```bash
-cd ha-school-calendar-hub
+cd calendrier_scolaire_quebecois
 python -m venv venv
 source venv/bin/activate
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 ```
 
 ### Exécution des tests
@@ -223,7 +223,7 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE).
 
 - 📧 **Problèmes** : [GitHub Issues](https://github.com/Simardd77/calendrier_scolaire_quebecois/issues)
 - 💬 **Discussions** : [GitHub Discussions](https://github.com/Simardd77/calendrier_scolaire_quebecois/discussions)
-- 📚 **Documentation** : [Documentation complète](School_Calendar_Hub_Documentation_Pack/README.md)
+- 📚 **Documentation** : [Documentation complète](docs/README.md)
 
 ## Crédits
 

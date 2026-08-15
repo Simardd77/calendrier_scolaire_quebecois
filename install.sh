@@ -14,18 +14,18 @@ echo ""
 
 # Vérification de Home Assistant
 echo "2. Préparation pour Home Assistant..."
-echo "   - Copiez custom_components/school_calendar_hub dans ~/.homeassistant/custom_components/"
-echo "   - Ou installez via HACS : https://github.com/yourusername/ha-school-calendar-hub"
+echo "   - Copiez custom_components/calendrier_scolaire_quebecois dans ~/.homeassistant/custom_components/"
+echo "   - Ou installez via HACS : https://github.com/Simardd77/calendrier_scolaire_quebecois"
 echo ""
 
 # Installation des dépendances
 echo "3. Installation des dépendances..."
-pip install -r custom_components/school_calendar_hub/requirements.txt 2>/dev/null || echo "   - Installez via le gestionnaire de paquets de Home Assistant"
+pip install -r custom_components/calendrier_scolaire_quebecois/requirements.txt 2>/dev/null || echo "   - Installez via le gestionnaire de paquets de Home Assistant"
 echo ""
 
 # Optionnel : installation des dépendances de dev
 echo "4. Pour le développement :"
-echo "   pip install -r requirements-dev.txt"
+echo "   pip install -r requirements.txt"
 echo "   pytest tests/"
 echo ""
 
@@ -40,9 +40,9 @@ echo ""
 # Vérification
 echo "6. Vérification :"
 echo "   - Vérifiez les entités : Outils de développement → État"
-echo "   - Recherchez : calendar.school_calendar_hub_*"
-echo "   - Recherchez : sensor.school_calendar_hub_*"
-echo "   - Recherchez : binary_sensor.school_calendar_hub_*"
+echo "   - Recherchez : calendar.calendrier_scolaire_quebecois_*"
+echo "   - Recherchez : sensor.calendrier_scolaire_quebecois_*"
+echo "   - Recherchez : binary_sensor.calendrier_scolaire_quebecois_*"
 echo ""
 
 echo "==============================================="

@@ -3,15 +3,18 @@
 ## Structure complète du répertoire
 
 ```
-css-calendrier-scolaire/
+calendrier_scolaire_quebecois/
 ├── custom_components/
-│   └── school_calendar_hub/                    # Intégration principale
+│   └── calendrier_scolaire_quebecois/          # Intégration principale
 │       ├── __init__.py                        # Configuration et services
 │       ├── config_flow.py                     # Interface de configuration
 │       ├── const.py                           # Constantes et réglages
 │       ├── manifest.json                      # Métadonnées de l'intégration
 │       ├── services.yaml                      # Définition des services
 │       ├── strings.json                       # Chaînes localisées
+│       │
+│       ├── brand/
+│       │   └── icon.png                       # Icône de l'intégration
 │       │
 │       ├── core/
 │       │   ├── __init__.py
@@ -39,7 +42,7 @@ css-calendrier-scolaire/
 │       └── translations/
 │           └── en.json                        # Traductions anglaises
 │
-├── School_Calendar_Hub_Documentation_Pack/    # Documentation technique
+├── docs/                                      # Documentation technique
 │   ├── README.md
 │   └── ...
 │
@@ -60,7 +63,7 @@ css-calendrier-scolaire/
 ├── LICENSE                                    # Licence MIT
 ├── hacs.json                                  # Configuration HACS
 ├── .gitignore                                 # Fichier gitignore
-└── requirements-dev.txt                       # Dépendances de développement
+└── requirements.txt                           # Dépendances de développement
 ```
 
 ## Aperçu des composants
@@ -112,7 +115,7 @@ css-calendrier-scolaire/
 
 ### Ajouter une source
 ```yaml
-service: school_calendar_hub.add_source
+service: calendrier_scolaire_quebecois.add_source
 data:
   name: "Mon école 2024"
   source_url: "https://example.com/calendar.pdf"
@@ -121,12 +124,12 @@ data:
 
 ### Rafraîchir le calendrier
 ```yaml
-service: school_calendar_hub.refresh_calendar
+service: calendrier_scolaire_quebecois.refresh_calendar
 ```
 
 ### Entraîner le parseur
 ```yaml
-service: school_calendar_hub.train_parser
+service: calendrier_scolaire_quebecois.train_parser
 ```
 
 ## Structure de la documentation
@@ -134,7 +137,7 @@ service: school_calendar_hub.train_parser
 1. **README.md** - Documentation grand public
 2. **DEVELOPMENT.md** - Guide développeur
 3. **FAQ.md** - Questions et dépannage
-4. **School_Calendar_Hub_Documentation_Pack/** - Spécifications techniques
+4. **docs/** - Spécifications techniques
 5. **Commentaires du code** - Documentation inline
 
 ---

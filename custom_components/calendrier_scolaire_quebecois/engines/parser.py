@@ -104,7 +104,7 @@ class ParserEngine:
             for component in cal.walk():
                 if component.name == "VEVENT":
                     event = {
-                        "title": str(component.get("summary", "Event")),
+                        "title": str(component.get("summary", "Événement")),
                         "start": component.get("dtstart"),
                         "end": component.get("dtend"),
                         "description": str(component.get("description", "")),

@@ -14,7 +14,7 @@
 ## Configuration
 
 ### Q : Comment ajouter une source de calendrier ?
-**R :** Utilisez le service `school_calendar_hub.add_source` ou l'interface du flux de configuration.
+**R :** Utilisez le service `calendrier_scolaire_quebecois.add_source` ou l'interface du flux de configuration.
 
 ### Q : Quels formats de fichiers sont pris en charge ?
 **R :** PDF, iCalendar (.ics) et sites web HTML.
@@ -29,18 +29,18 @@
 
 ### Q : Pourquoi mes événements n'apparaissent-ils pas ?
 **R :**
-1. Vérifiez que l'entité est disponible : `calendar.school_calendar_hub_*`
+1. Vérifiez que l'entité est disponible : `calendar.calendrier_scolaire_quebecois_*`
 2. Activez le débogage et consultez les journaux
-3. Essayez un rafraîchissement manuel : `school_calendar_hub.refresh_calendar`
+3. Essayez un rafraîchissement manuel : `calendrier_scolaire_quebecois.refresh_calendar`
 
 ### Q : Comment dépanner les problèmes d'analyse ?
-**R :** Activez le débogage et vérifiez les journaux. Vous pouvez aussi utiliser manuellement le service `school_calendar_hub.parse_pdf`.
+**R :** Activez le débogage et vérifiez les journaux. Vous pouvez aussi utiliser manuellement le service `calendrier_scolaire_quebecois.parse_pdf`.
 
 ### Q : Que fait le mode d'apprentissage ?
 **R :** Le moteur d'apprentissage analyse les événements extraits pour améliorer la précision des analyses futures. Plus il y a de données, meilleurs sont les résultats.
 
 ### Q : Puis-je entraîner le parseur manuellement ?
-**R :** Oui, utilisez le service `school_calendar_hub.train_parser`.
+**R :** Oui, utilisez le service `calendrier_scolaire_quebecois.train_parser`.
 
 ## Dépannage
 
@@ -72,7 +72,7 @@
 ## Personnalisation
 
 ### Q : Puis-je créer un parseur personnalisé pour mon école ?
-**R :** Oui ! Créez un parseur dans `custom_components/school_calendar_hub/engines/parsers/`.
+**R :** Oui ! Créez un parseur dans `custom_components/calendrier_scolaire_quebecois/engines/parsers/`.
 
 ### Q : Puis-je ajouter des sources spécifiques au Québec ?
 **R :** Oui. Ajoutez des sources ciblées dans la configuration ou personnalisez le moteur de découverte.
@@ -101,10 +101,10 @@
 **R :** Oui ! Consultez [DEVELOPMENT.md](DEVELOPMENT.md) pour les directives.
 
 ### Q : Comment signaler des bogues ?
-**R :** Créez un problème sur [GitHub Issues](https://github.com/yourusername/ha-school-calendar-hub/issues).
+**R :** Créez un problème sur [GitHub Issues](https://github.com/Simardd77/calendrier_scolaire_quebecois/issues).
 
 ### Q : Comment demander des fonctionnalités ?
-**R :** Utilisez [GitHub Discussions](https://github.com/yourusername/ha-school-calendar-hub/discussions).
+**R :** Utilisez [GitHub Discussions](https://github.com/Simardd77/calendrier_scolaire_quebecois/discussions).
 
 ## Avancé
 
@@ -123,7 +123,6 @@
 ## Support
 
 Pour plus d'aide :
-- 📚 [Documentation complète](School_Calendar_Hub_Documentation_Pack/README.md)
-- 🐛 [Signaler un problème](https://github.com/yourusername/ha-school-calendar-hub/issues)
-- 💬 [Discussions](https://github.com/yourusername/ha-school-calendar-hub/discussions)
-- 📧 Assistance par email disponible
+- 📚 [Documentation complète](docs/README.md)
+- 🐛 [Signaler un problème](https://github.com/Simardd77/calendrier_scolaire_quebecois/issues)
+- 💬 [Discussions](https://github.com/Simardd77/calendrier_scolaire_quebecois/discussions)
