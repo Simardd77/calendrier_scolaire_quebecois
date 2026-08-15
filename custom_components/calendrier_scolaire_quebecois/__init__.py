@@ -10,6 +10,7 @@ from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
+import voluptuous as vol
 
 from .const import (
     ATTR_ENTITY_ID,
@@ -32,11 +33,11 @@ _LOGGER = logging.getLogger(__name__)
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 # Schémas de services
-SCHEMA_ADD_SOURCE = cv.OBJECT
-SCHEMA_REMOVE_SOURCE = cv.OBJECT
-SCHEMA_REFRESH_CALENDAR = cv.OBJECT
-SCHEMA_PARSE_PDF = cv.OBJECT
-SCHEMA_TRAIN_PARSER = cv.OBJECT
+SCHEMA_ADD_SOURCE = vol.Schema({}, extra=vol.ALLOW_EXTRA)
+SCHEMA_REMOVE_SOURCE = vol.Schema({}, extra=vol.ALLOW_EXTRA)
+SCHEMA_REFRESH_CALENDAR = vol.Schema({}, extra=vol.ALLOW_EXTRA)
+SCHEMA_PARSE_PDF = vol.Schema({}, extra=vol.ALLOW_EXTRA)
+SCHEMA_TRAIN_PARSER = vol.Schema({}, extra=vol.ALLOW_EXTRA)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
