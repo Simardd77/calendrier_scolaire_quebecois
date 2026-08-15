@@ -1,4 +1,5 @@
 """Entité de calendrier pour Calendrier Scolaire Québécois."""
+
 from __future__ import annotations
 
 import logging
@@ -76,12 +77,10 @@ class SchoolCalendarEntity(CoordinatorEntity, CalendarEntity):
         events = []
 
         try:
-            calendar_events = (
-                await self.manager.calendar_engine.get_events(
-                    calendar_name=self.calendar_name,
-                    start_date=start_date,
-                    end_date=end_date,
-                )
+            calendar_events = await self.manager.calendar_engine.get_events(
+                calendar_name=self.calendar_name,
+                start_date=start_date,
+                end_date=end_date,
             )
 
             for event in calendar_events:
@@ -123,9 +122,7 @@ class SchoolCalendarEntity(CoordinatorEntity, CalendarEntity):
     def event(self) -> Optional[CalendarEvent]:
         """Return the next upcoming event."""
         try:
-            upcoming = self.manager.calendar_engine.calendars[
-                self.calendar_name
-            ].events
+            upcoming = self.manager.calendar_engine.calendars[self.calendar_name].events
 
             if upcoming:
                 next_event = upcoming[0]

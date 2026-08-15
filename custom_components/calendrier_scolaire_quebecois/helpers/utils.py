@@ -1,4 +1,5 @@
 """Fonctions utilitaires pour Calendrier Scolaire Québécois."""
+
 from __future__ import annotations
 
 import logging

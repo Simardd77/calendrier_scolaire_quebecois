@@ -1,17 +1,16 @@
 {
-  "domain": "calendrier_scolaire_qc",
+  "domain": "calendrier_scolaire_quebecois",
   "name": "Calendrier Scolaire Québécois",
-  "codeowners": ["@dom"],
+  "codeowners": ["@Simardd77"],
   "config_flow": true,
-  "documentation": "https://github.com/yourusername/ha-school-calendar-hub",
+  "documentation": "https://github.com/Simardd77/calendrier_scolaire_quebecois",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/yourusername/ha-school-calendar-hub/issues",
+  "issue_tracker": "https://github.com/Simardd77/calendrier_scolaire_quebecois/issues",
   "requirements": [
     "pytesseract==0.3.10",
     "pillow==10.1.0",
     "pdfplumber==0.10.3",
     "requests==2.31.0"
   ],
-  "version": "1.0.0",
-  "homeassistant": "2026.1.0"
+  "version": "1.0.0"
 }

@@ -1,4 +1,5 @@
 """Moteur de calendrier pour la gestion des entités de calendrier."""
+
 from __future__ import annotations
 
 import logging
@@ -102,9 +103,7 @@ class CalendarEngine:
             calendar_name=calendar_name, start_date=now, end_date=end_date
         )
 
-    async def add_event(
-        self, calendar_name: str, event: Dict[str, Any]
-    ) -> None:
+    async def add_event(self, calendar_name: str, event: Dict[str, Any]) -> None:
         """Add an event to a calendar."""
         _LOGGER.debug("Adding event to calendar %s", calendar_name)
 
@@ -126,9 +125,7 @@ class CalendarEngine:
         for calendar in self.calendars.values():
             calendar.events = [e for e in calendar.events if e.get("id") != event_id]
 
-    def get_calendar_info(
-        self, calendar_name: str
-    ) -> Optional[Dict[str, Any]]:
+    def get_calendar_info(self, calendar_name: str) -> Optional[Dict[str, Any]]:
         """Get information about a calendar."""
         calendar = self.calendars.get(calendar_name)
         if calendar:

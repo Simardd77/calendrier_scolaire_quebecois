@@ -1,4 +1,5 @@
 """Flux de configuration pour l'intégration Calendrier Scolaire Québécois."""
+
 from __future__ import annotations
 
 import logging
@@ -41,11 +42,11 @@ class CalendrierScolaireQcConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             try:
                 # Valide l'entrée
                 name = user_input.get(CONF_NAME, "Calendrier Scolaire")
-                
+
                 # Vérifie les doublons
                 await self.async_set_unique_id(name)
                 self._abort_if_unique_id_configured()
-                
+
                 return self.async_create_entry(
                     title=name,
                     data={

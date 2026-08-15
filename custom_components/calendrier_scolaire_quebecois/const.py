@@ -51,13 +51,26 @@ DATE_PATTERNS = [
 ]
 
 HOLIDAY_KEYWORDS = [
-    "vacances", "congé", "fermeture", "fermé", "fériés",
-    "relâche", "congé pédagogique", "semaine de congé"
+    "vacances",
+    "congé",
+    "fermeture",
+    "fermé",
+    "fériés",
+    "relâche",
+    "congé pédagogique",
+    "semaine de congé",
 ]
 
 EVENT_KEYWORDS = [
-    "classe", "école", "rentrée", "réunion", "excursion",
-    "examen", "test", "présentation", "projet"
+    "classe",
+    "école",
+    "rentrée",
+    "réunion",
+    "excursion",
+    "examen",
+    "test",
+    "présentation",
+    "projet",
 ]
 
 # Chemins de stockage

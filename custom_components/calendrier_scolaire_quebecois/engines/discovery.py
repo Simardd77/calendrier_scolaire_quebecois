@@ -1,4 +1,5 @@
 """Moteur de découverte pour trouver les sources de calendrier."""
+
 from __future__ import annotations
 
 import logging
@@ -53,13 +54,13 @@ class DiscoveryEngine:
                 "type": "school_website",
                 "url": "https://www.quebec.ca",
                 "description": "Calendriers des commissions scolaires du Québec",
-            }
+            },
         }
 
     async def fetch_source(self, source: Dict[str, Any]) -> bytes:
         """Récupère les données d'une source de calendrier."""
         _LOGGER.debug("Récupération de la source: %s", source.get("name"))
-        
+
         url = source.get("url")
 
         if not url:
@@ -68,7 +69,9 @@ class DiscoveryEngine:
 
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+                async with session.get(
+                    url, timeout=aiohttp.ClientTimeout(total=30)
+                ) as resp:
                     if resp.status == 200:
                         return await resp.read()
                     else:
@@ -79,7 +82,11 @@ class DiscoveryEngine:
                         )
                         return b""
         except Exception as err:
-            _LOGGER.error("Erreur lors de la récupération de la source %s: %s", source.get("name"), err)
+            _LOGGER.error(
+                "Erreur lors de la récupération de la source %s: %s",
+                source.get("name"),
+                err,
+            )
             return b""
 
     async def auto_discover_from_website(self, url: str) -> List[Dict[str, Any]]:
@@ -90,7 +97,9 @@ class DiscoveryEngine:
 
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as resp:
+                async with session.get(
+                    url, timeout=aiohttp.ClientTimeout(total=30)
+                ) as resp:
                     if resp.status == 200:
                         content = await resp.text()
 
@@ -119,14 +128,20 @@ class DiscoveryEngine:
                                     {
                                         "name": pdf_url.split("/")[-1],
                                         "type": "direct_url",
-                                        "url": pdf_url
-                                        if pdf_url.startswith("http")
-                                        else url.rstrip("/") + "/" + pdf_url.lstrip("/"),
+                                        "url": (
+                                            pdf_url
+                                            if pdf_url.startswith("http")
+                                            else url.rstrip("/")
+                                            + "/"
+                                            + pdf_url.lstrip("/")
+                                        ),
                                         "discovered": True,
                                     }
                                 )
 
         except Exception as err:
-            _LOGGER.error("Erreur lors de la découverte automatique à partir de %s: %s", url, err)
+            _LOGGER.error(
+                "Erreur lors de la découverte automatique à partir de %s: %s", url, err
+            )
 
         return sources

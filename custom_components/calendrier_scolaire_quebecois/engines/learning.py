@@ -1,4 +1,5 @@
 """Moteur d'apprentissage pour améliorer la précision de l'analyseur."""
+
 from __future__ import annotations
 
 import json
@@ -18,14 +19,12 @@ class LearningEngine:
         self.manager = manager
         self.training_data: List[Dict[str, Any]] = []
         self.models: Dict[str, Any] = {}
-        self.state_file = Path(self.manager.hass.config.path(
-            f".{self.manager.name}_learning.json"
-        ))
+        self.state_file = Path(
+            self.manager.hass.config.path(f".{self.manager.name}_learning.json")
+        )
         self._load_state()
 
-    async def async_process_events(
-        self, events: List[Dict[str, Any]]
-    ) -> None:
+    async def async_process_events(self, events: List[Dict[str, Any]]) -> None:
         """Process events for learning."""
         _LOGGER.debug("Processing %d events for learning", len(events))
 
@@ -53,17 +52,13 @@ class LearningEngine:
 
             # Apply learned corrections
             if self.training_data:
-                improved_event = await self._apply_learned_patterns(
-                    improved_event
-                )
+                improved_event = await self._apply_learned_patterns(improved_event)
 
             improved_events.append(improved_event)
 
         return improved_events
 
-    async def _apply_learned_patterns(
-        self, event: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    async def _apply_learned_patterns(self, event: Dict[str, Any]) -> Dict[str, Any]:
         """Apply learned patterns to improve event."""
         # This is a simplified implementation
         # In a real ML system, you would use actual models here
@@ -88,8 +83,9 @@ class LearningEngine:
 
     async def train(self) -> None:
         """Train the learning models."""
-        _LOGGER.info("Training learning models with %d samples", 
-                    len(self.training_data))
+        _LOGGER.info(
+            "Training learning models with %d samples", len(self.training_data)
+        )
 
         if len(self.training_data) < 10:
             _LOGGER.warning(
@@ -136,9 +132,7 @@ class LearningEngine:
                 patterns[word] = patterns.get(word, 0) + 1
 
         # Return top patterns
-        return dict(
-            sorted(patterns.items(), key=lambda x: x[1], reverse=True)[:20]
-        )
+        return dict(sorted(patterns.items(), key=lambda x: x[1], reverse=True)[:20])
 
     async def save_state(self) -> None:
         """Save learning engine state to file."""

@@ -1,4 +1,5 @@
 """Moteur d'analyse pour l'extraction des événements de calendrier."""
+
 from __future__ import annotations
 
 import logging
@@ -17,9 +18,7 @@ class ParserEngine:
         self.manager = manager
         self.parsers: Dict[str, Any] = {}
 
-    async def parse(
-        self, data: bytes, source: Dict[str, Any]
-    ) -> List[Dict[str, Any]]:
+    async def parse(self, data: bytes, source: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Analyse les données d'une source."""
         _LOGGER.debug("Analyse de la source: %s", source.get("name"))
 
@@ -36,7 +35,9 @@ class ParserEngine:
                 return await self._parse_html(data, source)
 
         except Exception as err:
-            _LOGGER.error("Erreur lors de l'analyse de la source %s: %s", source.get("name"), err)
+            _LOGGER.error(
+                "Erreur lors de l'analyse de la source %s: %s", source.get("name"), err
+            )
             return []
 
     async def parse_pdf(self, file_path: str) -> List[Dict[str, Any]]:
@@ -76,9 +77,7 @@ class ParserEngine:
                 return events
 
             except ImportError:
-                _LOGGER.warning(
-                    "pdfplumber not available, attempting OCR parsing"
-                )
+                _LOGGER.warning("pdfplumber not available, attempting OCR parsing")
 
                 # Fall back to OCR if available
                 if self.manager.ocr_engine:

@@ -1,7 +1,7 @@
 # Calendrier Scolaire Québécois pour Home Assistant
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Simardd77/ha-kiro-cli/main/custom_components/calendrier_scolaire_quebecois/brand/logo.png" alt="Logo" />
+  <img src="https://raw.githubusercontent.com/Simardd77/calendrier_scolaire_quebecois/main/brand/logo.png" alt="Logo" />
 </p>
 
 [![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)

@@ -1,4 +1,5 @@
 """Entités capteur pour Calendrier Scolaire Québécois."""
+
 from __future__ import annotations
 
 import logging

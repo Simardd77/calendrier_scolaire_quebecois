@@ -1,3 +1,56 @@
-"""Traductions pour Calendrier Scolaire Québécois."""
-
-# Ce fichier est volontairement minimal, les chaînes doivent être définies dans strings.json.
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Quebec School Calendar Configuration",
+        "description": "Configure your school calendar sources",
+        "data": {
+          "name": "Name",
+          "refresh_interval": "Refresh interval (seconds)",
+          "enable_ocr": "Enable OCR for PDF analysis",
+          "learning_mode": "Enable learning engine"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "An unknown error occurred"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Quebec School Calendar Options",
+        "description": "Update your settings",
+        "data": {
+          "refresh_interval": "Refresh interval (seconds)",
+          "enable_ocr": "Enable OCR for PDF analysis",
+          "learning_mode": "Enable learning engine"
+        }
+      }
+    }
+  },
+  "services": {
+    "add_source": {
+      "name": "Add source",
+      "description": "Add a new calendar source"
+    },
+    "remove_source": {
+      "name": "Remove source",
+      "description": "Remove a calendar source"
+    },
+    "refresh_calendar": {
+      "name": "Refresh calendar",
+      "description": "Manually refresh all calendars"
+    },
+    "parse_pdf": {
+      "name": "Parse PDF",
+      "description": "Parse a PDF file to extract events"
+    },
+    "train_parser": {
+      "name": "Train parser",
+      "description": "Train the learning engine with collected data"
+    }
+  }
+}

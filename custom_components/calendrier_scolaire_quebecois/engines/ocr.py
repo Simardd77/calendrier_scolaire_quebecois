@@ -1,4 +1,5 @@
 """Moteur OCR pour l'extraction de texte à partir d'images et de PDF."""
+
 from __future__ import annotations
 
 import logging

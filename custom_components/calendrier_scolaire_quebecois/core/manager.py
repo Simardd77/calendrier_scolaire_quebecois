@@ -1,4 +1,5 @@
 """Gestionnaire principal pour Calendrier Scolaire Québécois."""
+
 from __future__ import annotations
 
 import logging
@@ -34,7 +35,9 @@ class SchoolCalendarManager:
         self.hass = hass
         self.entry = entry
         self.name = entry.data.get(CONF_NAME, "Calendrier Scolaire")
-        self.refresh_interval = entry.data.get(CONF_REFRESH_INTERVAL, UPDATE_INTERVAL_NORMAL)
+        self.refresh_interval = entry.data.get(
+            CONF_REFRESH_INTERVAL, UPDATE_INTERVAL_NORMAL
+        )
         self.enable_ocr = entry.data.get(CONF_ENABLE_OCR, True)
         self.learning_mode = entry.data.get(CONF_LEARNING_MODE, True)
 
