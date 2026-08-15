@@ -1,0 +1,56 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configuration de Calendrier Scolaire Québécois",
+        "description": "Configurez vos sources de calendrier scolaire",
+        "data": {
+          "name": "Nom",
+          "refresh_interval": "Intervalle de rafraîchissement (secondes)",
+          "enable_ocr": "Activer l'OCR pour l'analyse PDF",
+          "learning_mode": "Activer le moteur d'apprentissage"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Échec de connexion",
+      "invalid_auth": "Authentification invalide",
+      "unknown": "Une erreur inconnue s'est produite"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options de Calendrier Scolaire Québécois",
+        "description": "Mettez à jour vos paramètres",
+        "data": {
+          "refresh_interval": "Intervalle de rafraîchissement (secondes)",
+          "enable_ocr": "Activer l'OCR pour l'analyse PDF",
+          "learning_mode": "Activer le moteur d'apprentissage"
+        }
+      }
+    }
+  },
+  "services": {
+    "add_source": {
+      "name": "Ajouter une source",
+      "description": "Ajouter une nouvelle source de calendrier"
+    },
+    "remove_source": {
+      "name": "Supprimer une source",
+      "description": "Supprimer une source de calendrier"
+    },
+    "refresh_calendar": {
+      "name": "Actualiser le calendrier",
+      "description": "Actualiser manuellement tous les calendriers"
+    },
+    "parse_pdf": {
+      "name": "Analyser un PDF",
+      "description": "Analyser un fichier PDF pour en extraire les événements"
+    },
+    "train_parser": {
+      "name": "Entraîner l'analyseur",
+      "description": "Entraîner le moteur d'apprentissage avec les données collectées"
+    }
+  }
+}

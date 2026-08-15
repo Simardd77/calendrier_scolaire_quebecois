@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get next version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == refs/heads/main ]]; then
+            LATEST=$(git tag --list "v*.*.*" --sort=-version:refname | grep -v -- '-' | head -1)
+            if [[ -z "${LATEST}" ]]; then
+              NEXT="1.0.0"
+            else
+              MAJOR=$(echo "${LATEST}" | cut -d. -f1 | tr -d 'v')
+              MINOR=$(echo "${LATEST}" | cut -d. -f2)
+              NEXT="${MAJOR}.$((MINOR + 1)).0"
+            fi
+            echo "PRERELEASE=false" >> "$GITHUB_OUTPUT"
+          else
+            LATEST=$(git tag --list "v*.*.*-beta.*" --sort=-version:refname | head -1)
+            if [[ -z "${LATEST}" ]]; then
+              BASE=$(git tag --list "v*.*.*" --sort=-version:refname | grep -v -- '-' | head -1)
+              BASE=${BASE:-v1.0.0}
+              MAJOR=$(echo "${BASE}" | cut -d. -f1 | tr -d 'v')
+              MINOR=$(echo "${BASE}" | cut -d. -f2)
+              PATCH=$(echo "${BASE}" | cut -d. -f3)
+              NEXT="${MAJOR}.${MINOR}.$((PATCH + 1))-beta.1"
+            else
+              BASE=$(echo "${LATEST}" | cut -d- -f1 | tr -d 'v')
+              BETANUM=$(echo "${LATEST}" | grep -o 'beta\.[0-9]*' | cut -d. -f2)
+              NEXT="${BASE}-beta.$((BETANUM + 1))"
+            fi
+            echo "PRERELEASE=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "VERSION=${NEXT}" >> "$GITHUB_OUTPUT"
+          echo "TAG_NAME=v${NEXT}" >> "$GITHUB_OUTPUT"
+
+      - name: Update manifest version
+        run: |
+          sed -i 's/"version": ".*"/"version": "${{ steps.version.outputs.VERSION }}"/' \
+            custom_components/calendrier_scolaire_quebecois/manifest.json
+
+      - name: Build release zip
+        run: |
+          mkdir -p dist
+          zip -r dist/calendrier_scolaire_quebecois-${{ steps.version.outputs.VERSION }}.zip \
+            custom_components/ \
+            hacs.json \
+            README.md \
+            LICENSE
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git tag --list "v*" --sort=-version:refname | head -1)
+          if [[ -z "${PREV_TAG}" ]]; then
+            COMMITS=$(git log --pretty=format:"%s" | head -30)
+          else
+            COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"%s")
+          fi
+
+          FEATS="" FIXES="" CI="" DOCS="" CHORES="" OTHER=""
+          while IFS= read -r line; do
+            case "${line}" in
+              feat*) FEATS="${FEATS}- ${line}\n" ;;
+              fix*)  FIXES="${FIXES}- ${line}\n" ;;
+              ci*)   CI="${CI}- ${line}\n" ;;
+              docs*) DOCS="${DOCS}- ${line}\n" ;;
+              chore*|refactor*|style*|perf*|test*) CHORES="${CHORES}- ${line}\n" ;;
+              *)     OTHER="${OTHER}- ${line}\n" ;;
+            esac
+          done <<< "${COMMITS}"
+
+          LOG=""
+          [[ -n "${FEATS}" ]]  && LOG="${LOG}## 🚀 Features\n${FEATS}\n"
+          [[ -n "${FIXES}" ]]  && LOG="${LOG}## 🐛 Bug Fixes\n${FIXES}\n"
+          [[ -n "${DOCS}" ]]   && LOG="${LOG}## 📝 Documentation\n${DOCS}\n"
+          [[ -n "${CI}" ]]     && LOG="${LOG}## 📦 CI/CD\n${CI}\n"
+          [[ -n "${CHORES}" ]] && LOG="${LOG}## 🧹 Chores\n${CHORES}\n"
+          [[ -n "${OTHER}" ]]  && LOG="${LOG}## 📌 Other\n${OTHER}\n"
+
+          echo "CHANGELOG<<EOF" >> "$GITHUB_OUTPUT"
+          echo -e "${LOG}" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.TAG_NAME }}
+          name: "Kiro ${{ steps.version.outputs.TAG_NAME }}"
+          body: |
+            ## What's Changed
+            ${{ steps.changelog.outputs.CHANGELOG }}
+
+            ## Installation
+            Download the zip below and extract it, or install via HACS.
+
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/...
+          files: |
+            dist/calendrier_scolaire_quebecois-${{ steps.version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: ${{ steps.version.outputs.PRERELEASE == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

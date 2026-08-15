@@ -1,0 +1,64 @@
+add_source:
+  name: Ajouter une source de calendrier
+  description: Ajouter une nouvelle source de calendrier à l'intégration
+  fields:
+    name:
+      selector:
+        text:
+          type: text
+      name: Nom
+      description: Nom convivial pour la source de calendrier
+    source_url:
+      selector:
+        text:
+          type: url
+      name: URL de la source
+      description: URL du PDF ou du site du calendrier
+    source_type:
+      selector:
+        select:
+          options:
+            - direct_url
+            - school_website
+            - ical
+      name: Type de source
+      description: Type de source de calendrier
+    parser_type:
+      selector:
+        select:
+          options:
+            - generic
+            - specific
+            - ai
+      name: Type d'analyseur
+      description: Type d'analyseur à utiliser
+
+remove_source:
+  name: Supprimer une source
+  description: Supprimer une source de calendrier de l'intégration
+  fields:
+    source_id:
+      selector:
+        text:
+          type: text
+      name: ID de la source
+      description: ID de la source à supprimer
+
+refresh_calendar:
+  name: Actualiser le calendrier
+  description: Actualiser manuellement tous les calendriers et événements
+
+parse_pdf:
+  name: Analyser un PDF
+  description: Analyser un fichier PDF et extraire les événements
+  fields:
+    file_path:
+      selector:
+        text:
+          type: text
+      name: Chemin du fichier
+      description: Chemin du fichier PDF à analyser
+
+train_parser:
+  name: Entraîner l'analyseur
+  description: Entraîner le moteur d'apprentissage avec les données collectées
