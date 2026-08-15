@@ -7,10 +7,7 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/Simardd77/calendrier_scolaire_quebecois/issues",
   "requirements": [
-    "pytesseract==0.3.10",
-    "pillow==10.1.0",
-    "pdfplumber==0.10.3",
-    "requests==2.31.0"
+    "pdfplumber>=0.10.3"
   ],
   "version": "1.0.0"
 }
